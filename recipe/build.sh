@@ -8,7 +8,7 @@ cp conda_src/conda/utils.py $SP_DIR/conda/utils.py
 
 # -F is to create a single file
 # -s strips executables and libraries
-pyinstaller -F -s -n conda.exe conda.exe.py
+pyinstaller conda.exe.spec
 mkdir -p $PREFIX/standalone_conda
 mv dist/conda.exe $PREFIX/standalone_conda
 # clean up .pyc files that pyinstaller creates

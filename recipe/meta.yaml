@@ -16,12 +16,20 @@ source:
     patches:
       - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
       - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
+  - git_url: https://github.com/conda/constructor    # [win]
+    git_tag: 3.0.0   # [win]
+    folder: constructor   # [win]
 
 requirements:
   host:
     - python
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
+
+test:
+  commands:
+    - "$PREFIX/standalone_conda/conda.exe -V"  # [unix]
+    - "%PREFIX%\standalone_conda\conda.exe -V"  # [win]
 
 about:
   summary: Entry point and dependency collection for PyInstaller-based standalone conda
