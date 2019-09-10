@@ -5,7 +5,7 @@ import sys
 block_cipher = None
 
 datas = []
-if sys.platform == "win-32":
+if sys.platform == "win32":
     datas = [(os.path.join(os.getcwd(), 'constructor', 'constructor', 'nsis', '_nsis.py'), 'Lib')]
 
 a = Analysis(['entry_point.py', 'imports.py'],
@@ -29,9 +29,10 @@ exe = EXE(pyz,
           a.datas,
           [],
           name='conda.exe',
+          icon="icon.ico",
           debug=False,
           bootloader_ignore_signals=False,
-          strip=True,
+          strip=(sys.platform!="win32"),
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,

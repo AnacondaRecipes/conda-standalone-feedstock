@@ -11,3 +11,5 @@ COPY constructor\constructor\nsis\_nsis.py %PREFIX%\Lib\_nsis.py
 pyinstaller conda.exe.spec
 MKDIR %PREFIX%\standalone_conda
 MOVE dist\conda.exe %PREFIX%\standalone_conda\conda.exe
+
+RD /s /q %SP_DIR%

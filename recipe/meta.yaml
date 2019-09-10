@@ -28,8 +28,8 @@ requirements:
 
 test:
   commands:
-    - "$PREFIX/standalone_conda/conda.exe -V"  # [unix]
-    - "%PREFIX%\standalone_conda\conda.exe -V"  # [win]
+    - "${PREFIX}/standalone_conda/conda.exe -V"  # [unix]
+    - "%PREFIX%\\standalone_conda\\conda.exe -V"  # [win]
 
 about:
   summary: Entry point and dependency collection for PyInstaller-based standalone conda
