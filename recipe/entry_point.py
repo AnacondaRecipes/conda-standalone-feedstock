@@ -67,18 +67,10 @@ if __name__ == '__main__':
                    if pkg.endswith(ext):
                        fn = os.path.join(os.getcwd(), pkg)
                        flist.append(fn)
-           def _extract(fn):
-               api.extract(fn)
-               return fn
-           if sys.platform == "win32":
-               for fn in flist:
-                   print("Unpacking : %s" % os.path.basename(fn), flush=True)
-                   _extract(fn)
-           else:
-               with tqdm.tqdm(total=len(flist), leave=False) as t:
-                    for fn in executor.map(_extract, flist):
-                        t.set_description("Extracting : %s" % os.path.basename(fn))
-                        t.update()
+           with tqdm.tqdm(total=len(flist), leave=False) as t:
+               for fn, _ in zip(flist, executor.map(api.extract, flist)):
+                   t.set_description("Extracting : %s" % os.path.basename(fn))
+                   t.update()
 
        if args.extract_tarball:
            import tarfile
