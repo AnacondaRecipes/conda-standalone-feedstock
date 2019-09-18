@@ -32,9 +32,9 @@ requirements:
 test:
   commands:
     - "${PREFIX}/standalone_conda/conda.exe -V"  # [unix]
-    - "${PREFIX}/standalone_conda/conda.exe create -y -p ./env_test conda" # [unix]
+    - "${PREFIX}/standalone_conda/conda.exe create -y -p ./env_test zlib" # [unix]
     - "%PREFIX%\\standalone_conda\\conda.exe -V"  # [win]
-    - "%PREFIX%\\standalone_conda\\conda.exe create -y -p env_test conda"  # [win]
+    - "%PREFIX%\\standalone_conda\\conda.exe create -y -p env_test zlib"  # [win]
 
 
 about:
