@@ -3,6 +3,7 @@
 import sys
 
 from concurrent.futures import Executor
+from multiprocessing import freeze_support
 
 # use this for debugging, because ProcessPoolExecutor isn't pdb/ipdb friendly
 class DummyExecutor(Executor):
@@ -12,6 +13,8 @@ class DummyExecutor(Executor):
                 yield func(thing)
 
 if __name__ == '__main__':
+    freeze_support()
+    # https://docs.python.org/3/library/multiprocessing.html#multiprocessing.freeze_support
     # Before any more imports, leave cwd out of sys.path for internal 'conda shell.*' commands.
     # see https://github.com/conda/conda/issues/6549
     if len(sys.argv) > 1 and sys.argv[1].startswith('shell.') and sys.path and sys.path[0] == '':
