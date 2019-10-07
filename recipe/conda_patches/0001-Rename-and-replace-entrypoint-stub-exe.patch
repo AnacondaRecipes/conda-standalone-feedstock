@@ -17,9 +17,9 @@ index 01c6938f7..70ca2166b 100644
                                                       entry_point_def):
 -        source_directory = context.conda_prefix
 -        source_short_path = 'Scripts/conda.exe'
-+        if lexists(join(sys.prefix, 'entrypoint.exe')):
++        if lexists(join(sys.prefix, 'entry_point.exe')):
 +            source_directory = sys.prefix
-+            source_short_path = 'entrypoint.exe'
++            source_short_path = 'entry_point.exe'
 +        else:
 +            source_directory = context.conda_prefix
 +            source_short_path = 'Scripts/conda.exe'
