@@ -57,13 +57,6 @@ if __name__ == '__main__':
            from conda_package_handling import api
            from concurrent.futures import ProcessPoolExecutor
            executor = ProcessPoolExecutor()
-           #try:
-           #    from concurrent.futures import ProcessPoolExecutor
-           #    executor = ProcessPoolExecutor()
-               # dummy test to see if PPE works
-           #    executor.map(lambda x: x, range(5))
-           #except OSError:
-           #    executor = DummyExecutor()
 
            os.chdir("pkgs")
            flist = []
