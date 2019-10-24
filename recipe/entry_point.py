@@ -55,13 +55,15 @@ if __name__ == '__main__':
        if args.extract_conda_pkgs:
            import tqdm
            from conda_package_handling import api
-           try:
-               from concurrent.futures import ProcessPoolExecutor
-               executor = ProcessPoolExecutor()
+           from concurrent.futures import ProcessPoolExecutor
+           executor = ProcessPoolExecutor()
+           #try:
+           #    from concurrent.futures import ProcessPoolExecutor
+           #    executor = ProcessPoolExecutor()
                # dummy test to see if PPE works
-               executor.map(lambda x: x, range(5))
-           except OSError:
-               executor = DummyExecutor()
+           #    executor.map(lambda x: x, range(5))
+           #except OSError:
+           #    executor = DummyExecutor()
 
            os.chdir("pkgs")
            flist = []
