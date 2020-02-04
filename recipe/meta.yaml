@@ -28,13 +28,15 @@ requirements:
     - python
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
+    - conda-package-handling >=1.6
 
 test:
   commands:
     - "${PREFIX}/standalone_conda/conda.exe -V"  # [unix]
+    - "${PREFIX}/standalone_conda/conda.exe create -y -p ./env_test zlib tqdm" # [unix]
     - "%PREFIX%\\standalone_conda\\conda.exe -V"  # [win]
-    - "${PREFIX}/standalone_conda/conda.exe create -p '${PREFIX}/tmp' --dry-run -y python"  # [unix]
-    - "%PREFIX%\\standalone_conda\\conda.exe create -p '%PREFIX%/tmp' --dry-run -y python"  # [win]
+    - "%PREFIX%\\standalone_conda\\conda.exe create -y -p env_test zlib tqdm"  # [win]
+
 
 about:
   summary: Entry point and dependency collection for PyInstaller-based standalone conda

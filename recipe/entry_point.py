@@ -3,6 +3,7 @@
 import sys
 
 from concurrent.futures import Executor
+from multiprocessing import freeze_support
 
 # use this for debugging, because ProcessPoolExecutor isn't pdb/ipdb friendly
 class DummyExecutor(Executor):
@@ -12,6 +13,8 @@ class DummyExecutor(Executor):
                 yield func(thing)
 
 if __name__ == '__main__':
+    freeze_support()
+    # https://docs.python.org/3/library/multiprocessing.html#multiprocessing.freeze_support
     # Before any more imports, leave cwd out of sys.path for internal 'conda shell.*' commands.
     # see https://github.com/conda/conda/issues/6549
     if len(sys.argv) > 1 and sys.argv[1].startswith('shell.') and sys.path and sys.path[0] == '':
@@ -52,13 +55,8 @@ if __name__ == '__main__':
        if args.extract_conda_pkgs:
            import tqdm
            from conda_package_handling import api
-           try:
-               from concurrent.futures import ProcessPoolExecutor
-               executor = ProcessPoolExecutor()
-               # dummy test to see if PPE works
-               executor.map(lambda x: x, range(5))
-           except OSError:
-               executor = DummyExecutor()
+           from concurrent.futures import ProcessPoolExecutor
+           executor = ProcessPoolExecutor()
 
            os.chdir("pkgs")
            flist = []
@@ -67,18 +65,10 @@ if __name__ == '__main__':
                    if pkg.endswith(ext):
                        fn = os.path.join(os.getcwd(), pkg)
                        flist.append(fn)
-           def _extract(fn):
-               api.extract(fn)
-               return fn
-           if sys.platform == "win32":
-               for fn in flist:
-                   print("Unpacking : %s" % os.path.basename(fn), flush=True)
-                   _extract(fn)
-           else:
-               with tqdm.tqdm(total=len(flist), leave=False) as t:
-                    for fn in executor.map(_extract, flist):
-                        t.set_description("Extracting : %s" % os.path.basename(fn))
-                        t.update()
+           with tqdm.tqdm(total=len(flist), leave=False) as t:
+               for fn, _ in zip(flist, executor.map(api.extract, flist)):
+                   t.set_description("Extracting : %s" % os.path.basename(fn))
+                   t.update()
 
        if args.extract_tarball:
            import tarfile
@@ -94,7 +84,7 @@ if __name__ == '__main__':
            if args.make_menus is not None:
                module.mk_menus(remove=False, prefix=args.prefix, pkg_names=args.make_menus)
            else:
-               module.rm_menus()
+               module.rm_menus(prefix=args.prefix)
        sys.exit()
     else:
        from conda.cli import main
