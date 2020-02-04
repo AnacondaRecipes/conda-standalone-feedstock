@@ -17,11 +17,11 @@ source:
       - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
       - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
   - git_url: https://github.com/conda/constructor    # [win]
-    git_tag: 3.0.0   # [win]
+    git_tag: 3.0.1   # [win]
     folder: constructor   # [win]
 
 build:
-  number: 6
+  number: 1
 
 requirements:
   host:
