@@ -10,6 +10,7 @@ source:
     patches:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
+      - conda_patches/0003-Remove-preload_openssl-it-is-so-so-wrong.patch
   - git_url: https://github.com/continuumio/menuinst
     git_tag: 1.4.16
     folder: menuinst_src
@@ -21,7 +22,7 @@ source:
     folder: constructor   # [win]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   host:
