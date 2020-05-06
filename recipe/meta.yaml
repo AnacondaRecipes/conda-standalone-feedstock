@@ -22,14 +22,14 @@ source:
     folder: constructor   # [win]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   host:
     - python
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
-    - conda-package-handling >=1.6
+    - conda-package-handling >=1.6.1
 
 test:
   commands:
