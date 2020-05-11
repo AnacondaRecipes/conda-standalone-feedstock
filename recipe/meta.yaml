@@ -1,3 +1,8 @@
+{% set debug = os.environ.get('CONDA_BUILD_CONDA_STANDALONE_DEBUG', '') %}
+{% if debug != '' %}
+  {% set debug = "_dbg" %}
+{% endif %}
+
 package:
   name: conda-standalone
   version: {{ CONDA_VERSION }}
@@ -18,11 +23,14 @@ source:
       - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
       - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
   - git_url: https://github.com/conda/constructor    # [win]
-    git_tag: 3.0.1   # [win]
+    git_tag: 3.0.5   # [win]
     folder: constructor   # [win]
 
 build:
   number: 3
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ debug }}
+  script_env:
+    - CONDA_BUILD_CONDA_STANDALONE_DEBUG
 
 requirements:
   host:
