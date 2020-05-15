@@ -16,6 +16,7 @@ source:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
       - conda_patches/0003-Remove-preload_openssl-it-is-so-so-wrong.patch
+      - conda_patches/0004-multiprocessing.set_start_method-fork-for-darwin-on-.patch
   - git_url: https://github.com/continuumio/menuinst
     git_tag: 1.4.16
     folder: menuinst_src
@@ -27,7 +28,7 @@ source:
     folder: constructor   # [win]
 
 build:
-  number: 3
+  number: 4
   string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ debug }}
   script_env:
     - CONDA_BUILD_CONDA_STANDALONE_DEBUG

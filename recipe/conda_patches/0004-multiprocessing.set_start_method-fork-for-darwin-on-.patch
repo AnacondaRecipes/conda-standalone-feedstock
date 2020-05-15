@@ -1,0 +1,32 @@
+From 8827f8e445d8f22eb1cd4b6d3edf76b68a797495 Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Fri, 15 May 2020 14:11:44 +0200
+Subject: [PATCH] multiprocessing.set_start_method('fork') for darwin on python
+ 3.8
+
+---
+ conda/__init__.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/conda/__init__.py b/conda/__init__.py
+index 1d133ac24..dfe2efdba 100644
+--- a/conda/__init__.py
++++ b/conda/__init__.py
+@@ -4,9 +4,13 @@
+ """OS-agnostic, system-level binary package manager."""
+ from __future__ import absolute_import, division, print_function, unicode_literals
+ 
++import sys
++import multiprocessing
++if sys.platform.startswith('darwin') and sys.version_info[:2] == (3,8):
++    multiprocessing.set_start_method('fork')
++
+ import os
+ from os.path import abspath, dirname
+-import sys
+ 
+ from json import JSONEncoder
+ 
+-- 
+2.26.2
+
