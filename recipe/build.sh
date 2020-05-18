@@ -1,6 +1,6 @@
 _SPEC=conda.exe.spec
 declare -a _EXTRA_ARGS=()
-if [[ -n ${CONDA_BUILD_CONDA_STANDALONE_DEBUG} ]]; then
+if [[ ${CONDA_BUILD_CONDA_STANDALONE_DEBUG} == yes ]]; then
   # _EXTRA_ARGS+=(--debug=imports)
   _EXTRA_ARGS+=(--debug=all)
   _SPEC=conda.exe.dbg.spec
@@ -16,7 +16,7 @@ cp conda_src/conda/utils.py $SP_DIR/conda/utils.py
 
 # -F is to create a single file
 # -s strips executables and libraries
-pyinstaller "${_EXTRA_ARGS[@]}" ${_SPEC}
+pyinstaller "${_EXTRA_ARGS[@]}" --clean ${_SPEC}
 
 # https://pyinstaller.readthedocs.io/en/stable/when-things-go-wrong.html#changing-runtime-behavior
 find . -name "rthooks.dat"

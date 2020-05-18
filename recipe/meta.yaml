@@ -1,7 +1,12 @@
-{% set debug = os.environ.get('CONDA_BUILD_CONDA_STANDALONE_DEBUG', '') %}
-{% if debug != '' %}
-  {% set debug = "_dbg" %}
-{% endif %}
+# {% set debug = os.environ.get('CONDA_BUILD_CONDA_STANDALONE_DEBUG', '') %}
+# {% if CONDA_BUILD_CONDA_STANDALONE_DEBUG == 'yes' %}
+#  {% set debug = 'yes' %}
+# {% endif %}
+# {% if debug != '' %}
+#   {% set debug = "_dbg" %}
+# {% endif %}
+
+{% set debug = "" %}
 
 package:
   name: conda-standalone
@@ -16,7 +21,7 @@ source:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
       - conda_patches/0003-Remove-preload_openssl-it-is-so-so-wrong.patch
-      - conda_patches/0004-multiprocessing.set_start_method-fork-for-darwin-on-.patch
+      # - conda_patches/0004-multiprocessing.set_start_method-fork-for-darwin-on-.patch
   - git_url: https://github.com/continuumio/menuinst
     git_tag: 1.4.16
     folder: menuinst_src
@@ -24,18 +29,20 @@ source:
       - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
       - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
   - git_url: https://github.com/conda/constructor    # [win]
-    git_tag: 3.0.5   # [win]
+    git_tag: 3.0.2   # [win]
     folder: constructor   # [win]
 
 build:
-  number: 4
+  number: 10
   string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ debug }}
   script_env:
     - CONDA_BUILD_CONDA_STANDALONE_DEBUG
 
 requirements:
   host:
-    - python
+    # - python =3.7  # [osx]
+    # - python  # [not osx]
+    - python =3.8
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
     - conda-package-handling >=1.6.1
