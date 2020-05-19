@@ -33,16 +33,11 @@ source:
     folder: constructor   # [win]
 
 build:
-  number: 10
-  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ debug }}
-  script_env:
-    - CONDA_BUILD_CONDA_STANDALONE_DEBUG
+  number: 3
 
 requirements:
   host:
-    # - python =3.7  # [osx]
-    # - python  # [not osx]
-    - python =3.8
+    - python=3.8.3
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
     - conda-package-handling >=1.6.1
