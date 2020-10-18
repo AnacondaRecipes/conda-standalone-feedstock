@@ -33,14 +33,16 @@ source:
     folder: constructor   # [win]
 
 build:
-  number: 11
+  number: 0
 
 requirements:
+  build:
+    - git
   host:
-    - python=3.8.3
+    - python=3.8.5
     - pyinstaller
     - conda ={{ environ.get("CONDA_VERSION", 4) }}
-    - conda-package-handling >=1.6.1
+    - conda-package-handling >=1.7.2
 
 test:
   commands:
