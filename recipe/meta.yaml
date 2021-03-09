@@ -7,6 +7,7 @@
 # {% endif %}
 
 {% set debug = "" %}
+{% set CONDA_VERSION = '4.9.2' %}
 
 package:
   name: conda-standalone
@@ -39,9 +40,9 @@ requirements:
   build:
     - git
   host:
-    - python=3.8.5
+    - python=3.8
     - pyinstaller
-    - conda ={{ environ.get("CONDA_VERSION", 4) }}
+    - conda ={{ CONDA_VERSION }}
     - conda-package-handling >=1.7.2
 
 test:
