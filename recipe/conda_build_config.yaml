@@ -1,4 +1,4 @@
 CONDA_VERSION:
-  - 4.9.0
+  - 4.9.2
 python:
   - 3.8
