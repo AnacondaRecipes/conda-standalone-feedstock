@@ -1,1 +1,1 @@
-To build the standalone installer, use the conda.recipe folder herein.  `conda build conda.recipe` should be enough to get you going.  It produces a conda package containing only the standalone executable.  You could then use conda-package-handling to extract it: `cph x <pkg path>`
+To build the standalone installer, use the conda.recipe folder herein.  `conda build recipe` should be enough to get you going.  It produces a conda package containing only the standalone executable.  You could then use conda-package-handling to extract it: `cph x <pkg path>`
