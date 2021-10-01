@@ -39,6 +39,7 @@ requirements:
     - git
     - patch       # [unix]
     - m2-patch    # [win]
+    - binutils    # [linux and aarch64]
   host:
     - python ={{ python_version }}
     - pyinstaller
