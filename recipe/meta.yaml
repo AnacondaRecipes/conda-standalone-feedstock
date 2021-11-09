@@ -10,7 +10,7 @@
 
 {% set version = "4.10.3" %}
 {% set constructor_version = "3.0.2" %}
-{% set python_version = "3.9.7" %}
+{% set python_version = "3.9" %}
 
 package:
   name: conda-standalone
@@ -27,12 +27,18 @@ source:
       # upstream since conda v4.9.1 - https://github.com/conda/conda/commit/a55441c3abca68d2dfbacf3f0a81a52dae117eba
       # - conda_patches/0003-Remove-preload_openssl-it-is-so-so-wrong.patch
       # - conda_patches/0004-multiprocessing.set_start_method-fork-for-darwin-on-.patch
+  - git_url: https://github.com/conda/menuinst
+    git_tag: 1.4.17
+    folder: menuinst_src
+    patches:
+      - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
+      - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
     sha256: b46dc3ffb6a7547f84834cc888570446d94ddfd7be832f08a798f55518a30545  # [win]
     folder: constructor   # [win]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -45,7 +51,6 @@ requirements:
     - pyinstaller
     - conda ={{ version }}
     - conda-package-handling >=1.7.2
-    - menuinst >=1.4.18  # [win]
 
 test:
   commands:
