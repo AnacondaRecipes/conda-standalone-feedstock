@@ -1,15 +1,5 @@
-# {% set debug = os.environ.get('CONDA_BUILD_CONDA_STANDALONE_DEBUG', '') %}
-# {% if CONDA_BUILD_CONDA_STANDALONE_DEBUG == 'yes' %}
-#  {% set debug = 'yes' %}
-# {% endif %}
-# {% if debug != '' %}
-#   {% set debug = "_dbg" %}
-# {% endif %}
-
-{% set debug = "" %}
-
-{% set version = "4.10.3" %}
-{% set constructor_version = "3.0.2" %}
+{% set version = "4.12.0" %}
+{% set constructor_version = "3.2.2" %}
 {% set python_version = "3.9" %}
 
 package:
@@ -19,38 +9,29 @@ package:
 source:
   - path: ./
   - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
-    sha256: 9e83bb20a6b9adc0bd7abccaa4738a71dc04e19a42dc51ad543539c15b2c941a
+    sha256: c6607fee920aae5d96528669fc9e61b9beff6cf8c634d1d85bc6f409d5146b44
     folder: conda_src
     patches:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
-      # upstream since conda v4.9.1 - https://github.com/conda/conda/commit/a55441c3abca68d2dfbacf3f0a81a52dae117eba
-      # - conda_patches/0003-Remove-preload_openssl-it-is-so-so-wrong.patch
-      # - conda_patches/0004-multiprocessing.set_start_method-fork-for-darwin-on-.patch
-  - git_url: https://github.com/conda/menuinst
-    git_tag: 1.4.17
-    folder: menuinst_src
-    patches:
-      - menuinst_patches/0001-Do-not-assume-menuinst-wants-to-operate-on-sys.prefi.patch
-      - menuinst_patches/0002-Allow-menuinst-to-operate-on-non-base-prefix.patch
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: b46dc3ffb6a7547f84834cc888570446d94ddfd7be832f08a798f55518a30545  # [win]
-    folder: constructor   # [win]
+    sha256: 57497a316a26631bb56c354a727980889015a1a79bf1a51131695ddbc51a0ca5  # [win]
+    folder: constructor  # [win]
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
-    - git
     - patch       # [unix]
     - m2-patch    # [win]
-    - binutils    # [linux and aarch64]
-  host:
-    - python ={{ python_version }}
     - pyinstaller
-    - conda ={{ version }}
-    - conda-package-handling >=1.7.2
+    - python {{ python_version }}
+    - conda {{ version }}
+    - conda-package-handling >=1.6
+    - menuinst >=1.4.18  # [win]
+  run_constrained:
+    - constructor {{ constructor_version }}
 
 test:
   commands:
