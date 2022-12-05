@@ -1,6 +1,6 @@
 {% set version = "4.12.0" %}
 {% set constructor_version = "3.2.2" %}
-{% set python_version = "3.9" %}
+{% set python_version = "3.9.15" %}
 
 package:
   name: conda-standalone
