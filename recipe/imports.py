@@ -5,22 +5,21 @@ import os
 import site
 import sys
 
-# Unfortunately, this didn't work for helping pyinstaller detect needed files.  Need manual spec as below.
-# packages = ['conda', 'conda-package-handling']
-# if sys.platform == "win32":
-#     packages.append('menuinst')
-# files = [f for package in packages
-#          for f in glob.glob(
-#                  os.path.join(os.getenv('SP_DIR', site.getsitepackages()[0]), package, "**/*.py"),
-#                  recursive=True)]
+packages = ['conda', 'conda-package-handling']
+if sys.platform == "win32":
+    packages.append('menuinst')
+files = [f for package in packages
+         for f in glob.glob(
+                 os.path.join(os.getenv('SP_DIR', site.getsitepackages()[0]), package, "**/*.py"),
+                 recursive=True)]
 
-# import importlib.util
-# modules = {}
-# for f in files:
-#     spec = importlib.util.spec_from_file_location(f, f)
-#     modules[f] = importlib.util.module_from_spec(spec)
+import importlib.util
+modules = {}
+for f in files:
+    spec = importlib.util.spec_from_file_location(f, f)
+    modules[f] = importlib.util.module_from_spec(spec)
 
-# print(modules.keys())
+print(modules.keys())
 
 import conda_package_handling.cli
 import conda_package_handling.conda_fmt
