@@ -31,7 +31,7 @@ requirements:
     - patch  # [not win]
     - m2-patch  # [win]
   run_constrained:
-    - constructor {{ constructor_version }}
+    - constructor >={{ constructor_version }}
 
 test:
   commands:
