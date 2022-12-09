@@ -1,4 +1,4 @@
-{% set version = "22.11.0" %}
+{% set version = "4.12.0" %}
 {% set constructor_version = "3.2.2" %}
 {% set python_version = "3.9.15" %}
 
@@ -9,7 +9,7 @@ package:
 source:
   - path: ./
   - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
-    sha256: f280c1e68601adbfacb63d71d7319b0067f9e2543bb56b98d8093d22617ee42e
+    sha256: c6607fee920aae5d96528669fc9e61b9beff6cf8c634d1d85bc6f409d5146b44
     folder: conda_src
     patches:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
@@ -31,7 +31,7 @@ requirements:
     - patch  # [not win]
     - m2-patch  # [win]
   run_constrained:
-    - constructor >={{ constructor_version }}
+    - constructor {{ constructor_version }}
 
 test:
   commands:
