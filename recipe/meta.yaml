@@ -23,7 +23,7 @@ build:
 
 requirements:
   build:
-    - pyinstaller 4.8
+    - pyinstaller 5.7.0
     - python {{ python_version }}
     - conda {{ version }}
     - conda-package-handling >=1.6
