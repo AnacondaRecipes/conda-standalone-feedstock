@@ -1,5 +1,5 @@
 {% set version = "22.11.1" %}
-{% set constructor_version = "3.2.2" %}
+{% set constructor_version = "3.3.1" %}
 {% set python_version = "3.9.15" %}
 
 package:
