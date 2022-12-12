@@ -18,11 +18,11 @@ source:
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
     sha256: b000dde0ac8641c92f7342362173968505d4e85845be37655b5b9221cb65f3a8  # [win]
     folder: constructor  # [win]
-#  - url: https://github.com/conda/menuinst/archive/refs/tags/1.4.19.tar.gz    # [win]
-#    sha256: f93ef4bc4e627868b7bba62ef8cb675e84d5bbe69a85a03a7559e1979f3924ec  # [win]
-#    folder: menuinst                                                          # [win]
-#    patches:                                                                  # [win]
-#      - menuinst_patches/0003-debug-prints.patch                              # [win]
+  - url: https://github.com/conda/menuinst/archive/refs/tags/1.4.19.tar.gz    # [win]
+    sha256: f93ef4bc4e627868b7bba62ef8cb675e84d5bbe69a85a03a7559e1979f3924ec  # [win]
+    folder: menuinst                                                          # [win]
+    patches:                                                                  # [win]
+      - menuinst_patches/0003-root-prefix-to-prefix.patch                     # [win]
 
 build:
   number: 1
@@ -33,7 +33,7 @@ requirements:
     - python {{ python_version }}
     - conda {{ version }}
     - conda-package-handling >=1.6
-    - menuinst >=1.4.18  # [win]
+#    - menuinst >=1.4.18  # [win]
     - patch  # [not win]
     - m2-patch  # [win]
   run_constrained:

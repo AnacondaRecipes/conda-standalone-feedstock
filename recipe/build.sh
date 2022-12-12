@@ -9,7 +9,6 @@ fi
 # patched conda files
 cp conda_src/conda/core/path_actions.py $SP_DIR/conda/core/path_actions.py
 cp conda_src/conda/utils.py $SP_DIR/conda/utils.py
-cp conda_src/conda/gateways/disk/create.py $SP_DIR/conda/gateways/disk/create.py
 
 # -F is to create a single file
 # -s strips executables and libraries
