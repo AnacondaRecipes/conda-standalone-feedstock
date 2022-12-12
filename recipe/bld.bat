@@ -4,11 +4,11 @@ COPY conda_src\conda\utils.py "%SP_DIR%\conda\utils.py"
 :: we need these for noarch packages with entry points to work on windows
 COPY conda_src\conda\shell\cli-%ARCH%.exe entry_point_base.exe
 
+COPY menuinst_src\menuinst\__init__.py "%SP_DIR%\menuinst\__init__.py"
+
 :: This is ordinarily installed by the installer itself, but since we are building for a
 :: standalone and have only an env, not an installation, include it here.
 COPY constructor\constructor\nsis\_nsis.py "%PREFIX%\Lib\_nsis.py"
-
-COPY menuinst_src\menuinst\__init__.py "%SP_DIR%\menuinst\__init__.py"
 
 pyinstaller conda.exe.spec --log-level DEBUG
 if %ErrorLevel% neq 0 exit \b 1

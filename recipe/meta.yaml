@@ -15,9 +15,6 @@ source:
     patches:
       - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
-  - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: b000dde0ac8641c92f7342362173968505d4e85845be37655b5b9221cb65f3a8  # [win]
-    folder: constructor  # [win]
   # This patch is still necessary because sys.prefix points to the TMP location
   # It cannot be patched in conda because the _conda.exe file that is executed
   # to create these menus does not appears to be conda-standalone
@@ -26,6 +23,9 @@ source:
     folder: menuinst_src                                                                    # [win]
     patches:                                                                                # [win]
       - menuinst_patches/0003-root-prefix-to-prefix.patch                                   # [win]
+  - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
+    sha256: b000dde0ac8641c92f7342362173968505d4e85845be37655b5b9221cb65f3a8  # [win]
+    folder: constructor  # [win]
 
 build:
   number: 0
