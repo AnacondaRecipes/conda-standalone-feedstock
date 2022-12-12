@@ -8,6 +8,8 @@ COPY conda_src\conda\shell\cli-%ARCH%.exe entry_point_base.exe
 :: standalone and have only an env, not an installation, include it here.
 COPY constructor\constructor\nsis\_nsis.py "%PREFIX%\Lib\_nsis.py"
 
+COPY menuinst_src\menuinst\__init__.py "%SP_DIR%\menuinst\__init__.py"
+
 pyinstaller conda.exe.spec --log-level DEBUG
 if %ErrorLevel% neq 0 exit \b 1
 
