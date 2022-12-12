@@ -36,7 +36,7 @@ requirements:
     - pyinstaller 5.6.2
     - python {{ python_version }}
     - conda {{ version }}
-    - conda-package-handling >=1.6
+    - conda-package-handling >=1.7.2
     - patch  # [not win]
     - m2-patch  # [win]
   run_constrained:
