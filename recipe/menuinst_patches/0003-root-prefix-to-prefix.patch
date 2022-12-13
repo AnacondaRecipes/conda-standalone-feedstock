@@ -1,5 +1,5 @@
 diff --git a/menuinst/__init__.py b/menuinst/__init__.py
-index 1dad2af..fb8b8b7 100644
+index 1dad2af..8d402c2 100644
 --- a/menuinst/__init__.py
 +++ b/menuinst/__init__.py
 @@ -56,6 +56,7 @@ def install(path, remove=False, prefix=sys.prefix, recursing=False, root_prefix=
@@ -10,11 +10,3 @@ index 1dad2af..fb8b8b7 100644
      if sys.platform == 'win32' and not exists(join(root_prefix, '.nonadmin')):
          if isUserAdmin():
              _install(path, remove, prefix, mode='system', root_prefix=root_prefix)
-@@ -63,6 +64,7 @@ def install(path, remove=False, prefix=sys.prefix, recursing=False, root_prefix=
-             retcode = 1
-             try:
-                 if not recursing:
-+                    print(f"python executable {join(root_prefix, 'python')}")
-                     retcode = runAsAdmin([join(root_prefix, 'python'), '-c',
-                                           "import menuinst; menuinst.install(%r, %r, %r, %r, %r)" % (
-                                               path, bool(remove), prefix, True, root_prefix)])
