@@ -1,5 +1,5 @@
 channels:
-  paulyim: prompt_name
+  - paulyim
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
