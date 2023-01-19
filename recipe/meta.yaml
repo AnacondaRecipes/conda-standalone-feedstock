@@ -23,6 +23,7 @@ source:
     folder: menuinst_src                                                                    # [win]
     patches:                                                                                # [win]
       - menuinst_patches/0003-root-prefix-to-prefix.patch                                   # [win]
+      - menuinst_patches/0004-distribution-name-subst.patch                                 # [win]
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
     sha256: b000dde0ac8641c92f7342362173968505d4e85845be37655b5b9221cb65f3a8  # [win]
     folder: constructor  # [win]
