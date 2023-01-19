@@ -1,0 +1,6 @@
+channels:
+  paulyim: prompt_name
+build_parameters:
+  - "--suppress-variables"
+  - "--error-overlinking"
+  - "--error-overdepending"
