@@ -1,6 +1,0 @@
-channels:
-  - c3i_test2
-build_parameters:
-  - "--suppress-variables"
-  - "--error-overlinking"
-  - "--error-overdepending"
