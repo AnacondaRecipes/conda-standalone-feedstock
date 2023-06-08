@@ -1,0 +1,73 @@
+diff --git a/menuinst/__init__.py b/menuinst/__init__.py
+index 1dad2af..c153848 100644
+--- a/menuinst/__init__.py
++++ b/menuinst/__init__.py
+@@ -56,7 +56,7 @@ def install(path, remove=False, prefix=sys.prefix, recursing=False, root_prefix=
+     # `sys.prefix`, therefore we need to specify it  
+     """
+     # this root_prefix is intentional.  We want to reflect the state of the root installation.
+-    if sys.platform == 'win32' and not exists(join(root_prefix, '.nonadmin')):
++    if sys.platform == 'win32' and exists(join(root_prefix, '.admin')):
+         if isUserAdmin():
+             _install(path, remove, prefix, mode='system', root_prefix=root_prefix)
+         else:
+diff --git a/menuinst/win32.py b/menuinst/win32.py
+index 6aabd93..cf216d5 100644
+--- a/menuinst/win32.py
++++ b/menuinst/win32.py
+@@ -196,7 +196,7 @@ class Menu(object):
+         # bytestrings passed in need to become unicode
+         self.prefix = to_unicode(prefix)
+         self.root_prefix = to_unicode(root_prefix)
+-        used_mode = mode if mode else ('user' if exists(join(self.prefix, u'.nonadmin')) else 'system')
++        used_mode = mode if mode else ('system' if exists(join(self.prefix, u'.admin')) else 'user')
+         logger.debug("Menu: name: '%s', prefix: '%s', env_name: '%s', mode: '%s', used_mode: '%s', root_prefix: '%s'"
+                     % (name, self.prefix, env_name, mode, used_mode, root_prefix))
+         try:
+diff --git a/tests/test_menu_creation.py b/tests/test_menu_creation.py
+index b87c3fa..9e0af97 100644
+--- a/tests/test_menu_creation.py
++++ b/tests/test_menu_creation.py
+@@ -27,25 +27,23 @@ class TestWindowsShortcuts(object):
+                 assert os.path.exists(path)
+ 
+     def test_create_and_remove_shortcut(self):
+-        nonadmin=os.path.join(sys.prefix, ".nonadmin")
++        admin=os.path.join(sys.prefix, ".admin")
+         shortcut = os.path.join(menu_dir, "menu-windows.json")
+-        has_nonadmin = os.path.exists(nonadmin)
++        has_admin = os.path.exists(admin)
+         name = 'Anaconda Prompt'
+         for mode in ["user", "system"]:
+-            if mode=="user":
+-                open(nonadmin, 'a').close()
++            if mode=="system":
++                open(admin, 'a').close()
+             menuinst.install(shortcut, remove=False)
+             assert file_exist(mode, name)
+             menuinst.install(shortcut, remove=True)
+             assert not file_exist(mode, name)
+-            if os.path.exists(nonadmin):
+-                os.remove(nonadmin)
+-        if has_nonadmin:
+-            open(nonadmin, 'a').close()
++            if os.path.exists(admin):
++                os.remove(admin)
++        if has_admin:
++            open(admin, 'a').close()
+ 
+     def test_create_shortcut_env(self):
+-        nonadmin=os.path.join(sys.prefix, ".nonadmin")
+-        open(nonadmin, 'a').close()
+         shortcut = os.path.join(menu_dir, "menu-windows.json")
+         test_env_name = 'test_env'
+         run_command("create", "-n", test_env_name, "python")
+@@ -58,8 +56,6 @@ class TestWindowsShortcuts(object):
+         run_command("remove", "-n", test_env_name, "--all")
+ 
+     def test_root_prefix(self):
+-        nonadmin=os.path.join(sys.prefix, ".nonadmin")
+-        open(nonadmin, 'a').close()
+         shortcut = os.path.join(menu_dir, "menu-windows.json")
+         root_prefix = os.path.join(menu_dir, 'temp_env')
+         run_command("create", "-p", root_prefix, "python")
