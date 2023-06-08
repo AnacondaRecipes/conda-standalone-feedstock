@@ -17,12 +17,11 @@ source:
       - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
   # This patch is still necessary because sys.prefix points to the TMP location
   # It cannot be patched in conda because the _conda.exe file that is executed
-  # to create these menus does not appears to be conda-standalone
+  # to create these menus does not appear to be conda-standalone
   - url: https://github.com/conda/menuinst/archive/refs/tags/{{ menuinst_version }}.tar.gz  # [win]
     sha256: f93ef4bc4e627868b7bba62ef8cb675e84d5bbe69a85a03a7559e1979f3924ec                # [win]
     folder: menuinst_src                                                                    # [win]
     patches:                                                                                # [win]
-      - menuinst_patches/0003-root-prefix-to-prefix.patch                                   # [win]
       - menuinst_patches/0004-distribution-name-subst.patch                                 # [win]
       - menuinst_patches/0005-switch-admin-nonadmin-file.patch                              # [win]
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
