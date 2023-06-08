@@ -1,0 +1,5 @@
+channels:
+  mesters_org: constructor
+build_parameters:
+  - "--suppress-variables"
+  - "--error-overlinking"
