@@ -1,8 +1,8 @@
 upload_channels:
-  scrass_org: <package>
+  scrass_org: conda-standalone
 
 channels:
-  scrass_org: <package>
+  scrass_org: conda-standalone
 
 build_parameters:
   - "--suppress-variables"
