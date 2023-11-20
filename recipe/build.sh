@@ -1,23 +1,31 @@
-_SPEC=conda.exe.spec
-declare -a _EXTRA_ARGS=()
-if [[ ${CONDA_BUILD_CONDA_STANDALONE_DEBUG} == yes ]]; then
-  # _EXTRA_ARGS+=(--debug=imports)
-  _EXTRA_ARGS+=(--debug=all)
-  _SPEC=conda.exe.dbg.spec
-fi
+set -euxo pipefail
 
 # patched conda files
-cp conda_src/conda/core/path_actions.py $SP_DIR/conda/core/path_actions.py
-cp conda_src/conda/utils.py $SP_DIR/conda/utils.py
+# new files in patches need to be added here
+for fname in "core/path_actions.py" "utils.py" "deprecations.py"; do
+  mv "$SP_DIR/conda/${fname}" "$SP_DIR/conda/${fname}.bak"
+  cp "conda_src/conda/${fname}" "$SP_DIR/conda/${fname}"
+done
+
+# make sure pyinstaller finds Apple's codesign first in PATH
+# some base installations have 'sigtool', which ships a
+# 'codesign' binary that might shadow Apple's codesign
+if [[ $target_platform == osx-* ]]; then
+  ln -s /usr/bin/codesign "$BUILD_PREFIX/bin/codesign"
+fi
 
 # -F is to create a single file
 # -s strips executables and libraries
-pyinstaller "${_EXTRA_ARGS[@]}" --clean ${_SPEC}
+pyinstaller --clean --log-level=DEBUG src/conda.exe.spec
+mkdir -p "$PREFIX/standalone_conda"
+mv dist/conda.exe "$PREFIX/standalone_conda"
 
-# https://pyinstaller.readthedocs.io/en/stable/when-things-go-wrong.html#changing-runtime-behavior
-find . -name "rthooks.dat"
+# Collect licenses
+python src/licenses.py \
+  --prefix "$BUILD_PREFIX" \
+  --include-text \
+  --text-errors replace \
+  --output "$SRC_DIR/3rd-party-licenses.json"
 
-mkdir -p $PREFIX/standalone_conda
-mv dist/conda.exe $PREFIX/standalone_conda
 # clean up .pyc files that pyinstaller creates
-rm -rf $PREFIX/lib
+rm -rf "$PREFIX/lib"

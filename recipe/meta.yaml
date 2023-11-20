@@ -1,60 +1,66 @@
-{% set version = "22.11.1" %}
-{% set constructor_version = "3.3.1" %}
-{% set menuinst_version = "1.4.19" %}
-{% set python_version = "3.9.15" %}
+{% set version = "23.10.0" %}
+{% set conda_libmamba_solver_version = "23.11.0" %}
+{% set libmambapy_version = "1.5.3" %}
+{% set constructor_version = "3.5.0" %}
+{% set python_version = "3.9.18" %}
 
 package:
   name: conda-standalone
   version: {{ version }}
 
 source:
-  - path: ./
+  - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
+    sha256: 819fc8ee8522707a93fc15cf823bb8aa3bc57fc5255ed3efd2f61209e0ed2c86
+
   - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
-    sha256: f9256a7e71a9f35063b683f6c7823acf05c1f75468fc609954f1f5efae7c03ac
+    sha256: 273d49db8ea723426b87866381daf2df27c7bca2c3474196460d637b62de2a1c
     folder: conda_src
     patches:
-      - conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
-      - conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda..patch
-  # This patch is still necessary because sys.prefix points to the TMP location
-  # It cannot be patched in conda because the _conda.exe file that is executed
-  # to create these menus does not appears to be conda-standalone
-  - url: https://github.com/conda/menuinst/archive/refs/tags/{{ menuinst_version }}.tar.gz  # [win]
-    sha256: f93ef4bc4e627868b7bba62ef8cb675e84d5bbe69a85a03a7559e1979f3924ec                # [win]
-    folder: menuinst_src                                                                    # [win]
-    patches:                                                                                # [win]
-      - menuinst_patches/0003-root-prefix-to-prefix.patch                                   # [win]
-      - menuinst_patches/0004-distribution-name-subst.patch                                 # [win]
+      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
+      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
+      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Return-unknown-module-in-deprecations.patch"
+
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: b000dde0ac8641c92f7342362173968505d4e85845be37655b5b9221cb65f3a8  # [win]
-    folder: constructor  # [win]
+    sha256: 787ffd85e9414bdf70fe531f01eab3987a040e3f6a6ac3a01409f4d332f7de9e  # [win]
+    folder: constructor_src  # [win]
 
 build:
-  number: 1
+  number: 0
+  ignore_run_exports:
+    - '*'
 
 requirements:
   build:
-    - python {{ python_version }}
-    - pyinstaller 5.6.2
-    - conda {{ version }}
-    - conda-package-handling >=1.7.2
-    - patch  # [not win]
-    - m2-patch  # [win]
+    - pyinstaller
+    - python ={{ python_version }}
+    - conda ={{ version }}
+    - conda-package-handling >=1.6
+    - menuinst >=1.4.18,<2.0a0  # [win]
+    - conda-libmamba-solver ={{ conda_libmamba_solver_version }}
+    - libmambapy ={{ libmambapy_version }}
   run_constrained:
     - constructor >={{ constructor_version }}
 
 test:
+  requires:
+    - pytest
+  source_files:
+    - tests
   commands:
-    - "${PREFIX}/standalone_conda/conda.exe -V"  # [unix]
-    - "${PREFIX}/standalone_conda/conda.exe create -y -p ./env_test zlib tqdm" # [unix]
-    - "%PREFIX%\\standalone_conda\\conda.exe -V"  # [win]
-    - "%PREFIX%\\standalone_conda\\conda.exe create -y -p env_test zlib tqdm"  # [win]
+    - pytest -vv
 
 about:
-  home: https://github.com/AnacondaRecipes/conda-standalone-feedstock
-  dev_url: https://github.com/AnacondaRecipes/conda-standalone-feedstock
-  doc_url: https://github.com/AnacondaRecipes/conda-standalone-feedstock/blob/master/README.md
-  license: BSD-3-Clause
-  license_family: BSD
-  license_file: LICENSE
+  home: https://github.com/conda/conda-standalone
+  license: LicenseRef-CondaStandalone
+  license_file:
+    - LICENSE
+    - 3rd-party-licenses.json
   summary: Entry point and dependency collection for PyInstaller-based standalone conda.
-  description: Standalone version of conda to bootstrap conda for Miniconda and Anaconda Distribution.
+
+extra:
+  recipe-maintainers:
+    - jaimergp
+    - jakirkham
+    - msarahan
+    - forrestwaters
+    - nehaljwani
