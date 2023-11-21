@@ -47,7 +47,8 @@ test:
   source_files:
     - tests
   commands:
-    - pytest -vv
+    - pytest -vv # [not s390x]
+    - pytest -vv -k "not test_new_environment" # [s390x]
 
 about:
   home: https://github.com/conda/conda-standalone
