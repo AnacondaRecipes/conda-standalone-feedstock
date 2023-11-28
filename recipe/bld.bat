@@ -23,7 +23,6 @@ MOVE dist\conda.exe "%PREFIX%\standalone_conda\conda.exe" || goto :error
   --prefix "%BUILD_PREFIX%" ^
   --include-text ^
   --text-errors replace ^
-  --output "%SRC_DIR%\3rd-party-licenses.json" || goto :error
 
 RD /s /q "%PREFIX%\lib" || goto :error
 
