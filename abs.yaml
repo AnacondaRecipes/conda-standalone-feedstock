@@ -1,11 +1,8 @@
 upload_channels:
   scrass_org: conda-standalone
 
-channels:
-  scrass_org: conda-standalone
-
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
   - "--error-overdepending"
-  - "upload_without_merge"
+  - "--upload_without_merge"
