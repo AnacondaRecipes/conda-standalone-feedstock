@@ -13,7 +13,6 @@ source:
     sha256: 819fc8ee8522707a93fc15cf823bb8aa3bc57fc5255ed3efd2f61209e0ed2c86
     patches:
       - "recipe_patches/check_for_license.patch"
-
   - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
     sha256: 273d49db8ea723426b87866381daf2df27c7bca2c3474196460d637b62de2a1c
     folder: conda_src
@@ -53,11 +52,15 @@ test:
 
 about:
   home: https://github.com/conda/conda-standalone
+  summary: Entry point and dependency collection for PyInstaller-based standalone conda.
+  description: A standalone conda executable built with PyInstaller.
   license: LicenseRef-CondaStandalone
   license_file:
     - LICENSE
     - 3rd-party-licenses.json
-  summary: Entry point and dependency collection for PyInstaller-based standalone conda.
+  license_family: BSD
+  doc_url: https://github.com/conda/conda-standalone
+  dev_url: https://github.com/conda/conda-standalone
 
 extra:
   recipe-maintainers:
