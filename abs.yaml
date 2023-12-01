@@ -1,6 +1,0 @@
-build_parameters:
-  - "--suppress-variables"
-  - "--skip-existing"
-  - "--error-overlinking"
-
-staging_channel_upload_target: conda-standalone
