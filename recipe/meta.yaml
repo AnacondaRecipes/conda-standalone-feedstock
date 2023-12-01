@@ -60,9 +60,11 @@ about:
   license_file:
     - LICENSE
     - 3rd-party-licenses.json
-  license_family: BSD
   doc_url: https://github.com/conda/conda-standalone
   dev_url: https://github.com/conda/conda-standalone
+
+skip-lints:
+  - license_family
 
 extra:
   recipe-maintainers:
