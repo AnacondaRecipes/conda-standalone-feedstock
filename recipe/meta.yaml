@@ -63,7 +63,7 @@ about:
   doc_url: https://github.com/conda/conda-standalone
   dev_url: https://github.com/conda/conda-standalone
 
-skip-lints:
+skip-lint:
   - license_family
 
 extra:
