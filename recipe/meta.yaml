@@ -63,9 +63,6 @@ about:
   doc_url: https://github.com/conda/conda-standalone
   dev_url: https://github.com/conda/conda-standalone
 
-skip-lints:
-  - missing_license_family
-
 extra:
   recipe-maintainers:
     - jaimergp
@@ -73,3 +70,6 @@ extra:
     - msarahan
     - forrestwaters
     - nehaljwani
+
+  skip-lints:
+  - missing_license_family
