@@ -64,7 +64,7 @@ about:
   dev_url: https://github.com/conda/conda-standalone
 
 skip-lints:
-  - invalid_license_family
+  - missing_license_family
 
 extra:
   recipe-maintainers:
