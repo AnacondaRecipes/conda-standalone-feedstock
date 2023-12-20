@@ -25,7 +25,7 @@ source:
     folder: constructor_src  # [win]
 
 build:
-  number: 0
+  number: 1
   ignore_run_exports:
     - '*'
 
@@ -33,7 +33,7 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    - pyinstaller
+    - pyinstaller >=6.0
     - python ={{ python_version }}
     - conda ={{ version }}
     - conda-package-handling >=1.6
