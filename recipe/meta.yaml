@@ -33,7 +33,7 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    - pyinstaller >=6.0
+    - pyinstaller
     - python ={{ python_version }}
     - conda ={{ version }}
     - conda-package-handling >=1.6
