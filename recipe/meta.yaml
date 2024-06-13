@@ -11,7 +11,7 @@ package:
 
 source:
   - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
-    sha256: c2e54c6493150bfc7242895159ff82de445e420e0379a50e61bc8a491e9c0397
+    sha256: 73d059cf28b02ff7424177abcecd0084111da3e75aec8c5dab1af81261120a0d
   - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
     sha256: 4a571495f08d49127b9ae28d8b8cb30bb055d061c189d8ef8c5682b26b6bde24
     folder: conda_src
