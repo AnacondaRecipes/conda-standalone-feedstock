@@ -32,7 +32,7 @@ requirements:
     - patch  # [not win]
     - m2-patch  # [win]
     - pefile ==2022.5.30  # [win]
-    - pyinstaller
+    - pyinstaller ==5.13.2
     - python ={{ python_version }}
     - conda ={{ conda_version }}
     - conda-package-handling >=2.3.0
