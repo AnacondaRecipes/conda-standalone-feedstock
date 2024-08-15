@@ -31,7 +31,7 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    - pefile ==2022.5.30  # [win]
+    - pefile ==2023.2.7  # [win]
     - pyinstaller ==5.13.2
     - python ={{ python_version }}
     - conda ={{ conda_version }}
