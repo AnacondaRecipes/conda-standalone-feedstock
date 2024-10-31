@@ -3,7 +3,7 @@
 {% set libmambapy_version = "1.5.8" %}
 {% set constructor_version = "3.9.3" %}
 {% set menuinst_lower_bound = "2.1.2" %}
-{% set python_version = "3.12.7" %}
+{% set python_version = "3.11.10" %}
 
 package:
   name: conda-standalone
@@ -34,7 +34,8 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    - pyinstaller
+    # Signing currently fails with pyinstaller 6.*
+    - pyinstaller ==5.13.2
     - python ={{ python_version }}
     - conda ={{ conda_version }}
     - conda-package-handling >=2.3.0
