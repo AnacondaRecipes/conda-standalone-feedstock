@@ -20,7 +20,7 @@ source:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: 0ea4f6d563a53ebb03475dc6d2d88d3ab01be4e9d291fd276c79315aa92e5114  # [win]
+    sha256: c88640ca1dcb93784cf754a16c53a098633808653aa52965c909a967b84815b9  # [win]
     folder: constructor_src  # [win]
 
 build:
