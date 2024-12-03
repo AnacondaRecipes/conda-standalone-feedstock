@@ -1,5 +1,5 @@
 diff --git a/tests/test_uninstall.py b/tests/test_uninstall.py
-index 9294251..e28146b 100644
+index 9294251..bb539c3 100644
 --- a/tests/test_uninstall.py
 +++ b/tests/test_uninstall.py
 @@ -299,6 +299,7 @@ def test_uninstallation_menuinst(
@@ -10,11 +10,12 @@ index 9294251..e28146b 100644
      tmp_env: TmpEnvFixture,
      shared_pkgs: bool,
  ):
-@@ -333,6 +334,7 @@ def test_uninstallation_remove_caches(
+@@ -333,6 +334,8 @@ def test_uninstallation_remove_caches(
          tmp_env("constructor") as base_env,
          other_env as _,
      ):
 +        conda_cli("info")
++        conda_cli("config", "--show-sources")
          assert pkgs_dir.exists()
          assert list(pkgs_dir.glob("constructor*")) != []
          assert list(pkgs_dir.glob("python*")) != []
