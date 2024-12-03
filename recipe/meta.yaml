@@ -19,6 +19,7 @@ source:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
+      - debug.patch
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
     sha256: cfb77a5e64b5b2b44fdb5c3d04adbb652c1249a86ea2e88f9b293e367a809caf  # [win]
     folder: constructor_src  # [win]
