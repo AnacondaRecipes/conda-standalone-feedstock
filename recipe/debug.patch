@@ -1,5 +1,5 @@
 diff --git a/tests/test_uninstall.py b/tests/test_uninstall.py
-index 9294251..bb539c3 100644
+index 9294251..57c3f5d 100644
 --- a/tests/test_uninstall.py
 +++ b/tests/test_uninstall.py
 @@ -299,6 +299,7 @@ def test_uninstallation_menuinst(
@@ -14,8 +14,8 @@ index 9294251..bb539c3 100644
          tmp_env("constructor") as base_env,
          other_env as _,
      ):
-+        conda_cli("info")
-+        conda_cli("config", "--show-sources")
++        print(conda_cli("info"))
++        print(conda_cli("config", "--show-sources"))
          assert pkgs_dir.exists()
          assert list(pkgs_dir.glob("constructor*")) != []
          assert list(pkgs_dir.glob("python*")) != []
