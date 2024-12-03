@@ -14,6 +14,7 @@ source:
     sha256: 195a13539c1e048a7ce3a3b74e5f6c30813ec339cf811e407f83076d8ecafd83
     patches:
       - skip-remove-caches-test.patch
+      - remove-macos-apps.patch
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
     sha256: 781cfe0d1bcc8d6f0249ea58a7f9655a5089a8a6eeab1511ab556e6a8e742e23
     folder: conda_src
