@@ -18,10 +18,10 @@ source:
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
     sha256: 9ae1433949ca80eddfd81f0d5bd9eb8c291c7e101cbb440f8bdba324c9ea470c
     folder: conda_src
-    patches:
-      - "{{ SRC_DIR | replace('\\', '/') }}/conda_src/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
-      - "{{ SRC_DIR | replace('\\', '/') }}/conda_src/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
-      - "{{ SRC_DIR | replace('\\', '/') }}/conda_src/src/conda_patches/0003-Restrict-search-paths.patch"
+    # patches:
+    #   - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
+    #   - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
+    #   - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
     sha256: cfb77a5e64b5b2b44fdb5c3d04adbb652c1249a86ea2e88f9b293e367a809caf  # [win]
     folder: constructor_src  # [win]
