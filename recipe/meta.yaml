@@ -27,7 +27,7 @@ source:
     folder: constructor_src  # [win]
 
 build:
-  number: 0
+  number: 1
   ignore_run_exports:
     - '*'
   script_env:
@@ -39,7 +39,7 @@ requirements:
     - patch  # [not win]
     - m2-patch  # [win]
     # Signing currently fails with pyinstaller 6.*
-    - pyinstaller ==5.13.2
+    - pyinstaller ==6.9.0
     - python ={{ python_version }}
     - conda ={{ conda_version }}
     - conda-package-handling >=2.3.0
