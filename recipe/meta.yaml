@@ -3,7 +3,7 @@
 {% set libmambapy_version = "1.5.11" %}
 {% set constructor_version = "3.10.0" %}
 {% set menuinst_lower_bound = "2.2.0" %}
-{% set python_version = "3.11.10" %}
+{% set python_version = "3.12.8" %}
 
 package:
   name: conda-standalone
@@ -16,7 +16,7 @@ source:
       - skip-remove-caches-test.patch
       - remove-macos-apps.patch
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
-    sha256: 781cfe0d1bcc8d6f0249ea58a7f9655a5089a8a6eeab1511ab556e6a8e742e23
+    sha256: 9ae1433949ca80eddfd81f0d5bd9eb8c291c7e101cbb440f8bdba324c9ea470c
     folder: conda_src
     patches:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
@@ -27,7 +27,7 @@ source:
     folder: constructor_src  # [win]
 
 build:
-  number: 0
+  number: 1
   ignore_run_exports:
     - '*'
   script_env:
@@ -38,8 +38,7 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    # Signing currently fails with pyinstaller 6.*
-    - pyinstaller ==5.13.2
+    - pyinstaller ==6.12.0
     - python ={{ python_version }}
     - conda ={{ conda_version }}
     - conda-package-handling >=2.3.0
@@ -69,6 +68,7 @@ about:
   summary: Entry point and dependency collection for PyInstaller-based standalone conda.
   description: A standalone conda executable built with PyInstaller.
   license: LicenseRef-CondaStandalone
+  license_family: Other
   license_file:
     - LICENSE
     - 3rd-party-licenses.json
@@ -82,6 +82,3 @@ extra:
     - msarahan
     - forrestwaters
     - nehaljwani
-
-  skip-lints:
-  - missing_license_family
