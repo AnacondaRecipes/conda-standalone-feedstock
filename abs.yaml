@@ -1,3 +1,2 @@
-channels:
-  - https://staging.continuum.io/prefect/fs/pyinstaller-hooks-contrib-feedstock/pr4/726bfbb
-  - https://staging.continuum.io/prefect/fs/pyinstaller-feedstock/pr11/950dee7
+build_env_vars:
+  ANACONDA_ROCKET_ENABLE_PY313 : yes
