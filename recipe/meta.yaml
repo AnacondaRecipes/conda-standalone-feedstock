@@ -33,6 +33,8 @@ build:
 
 requirements:
   build:
+    - patch  # [not win]
+    - m2-patch  # [win]
     - pyinstaller
     - python ={{ python_version }}
     - conda ={{ conda_version }}
