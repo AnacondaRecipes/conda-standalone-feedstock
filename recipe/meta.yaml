@@ -1,9 +1,9 @@
-{% set conda_version = "24.11.0" %}
-{% set conda_libmamba_solver_version = "24.9.0" %}
-{% set libmambapy_version = "1.5.11" %}
-{% set constructor_version = "3.10.0" %}
+{% set conda_version = "25.1.1" %}
+{% set conda_libmamba_solver_version = "25.3.0" %}
+{% set libmambapy_version = "2.0.5" %}
+{% set constructor_version = "3.11.3" %}
 {% set menuinst_lower_bound = "2.2.0" %}
-{% set python_version = "3.12.8" %}
+{% set python_version = "3.12.9" %}
 
 package:
   name: conda-standalone
@@ -11,19 +11,16 @@ package:
 
 source:
   - url: https://github.com/conda/conda-standalone/archive/{{ conda_version }}.tar.gz
-    sha256: 195a13539c1e048a7ce3a3b74e5f6c30813ec339cf811e407f83076d8ecafd83
-    patches:
-      - skip-remove-caches-test.patch
-      - remove-macos-apps.patch
+    sha256: 896e8a9d137c2a03d92d75906df78c8d6ecaf44719ccddc2862a099e5fc498ed
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
-    sha256: 9ae1433949ca80eddfd81f0d5bd9eb8c291c7e101cbb440f8bdba324c9ea470c
+    sha256: 97dcb3857f5d65feb2b877a64bcb73a4fc4dbeee93085b848dfffa5985533714
     folder: conda_src
     patches:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
   - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: cfb77a5e64b5b2b44fdb5c3d04adbb652c1249a86ea2e88f9b293e367a809caf  # [win]
+    sha256: b1b0bb88a8934508f837c892b4f9c3f08b34bf044b704b1fde44b148c236efbe  # [win]
     folder: constructor_src  # [win]
 
 build:
@@ -38,7 +35,7 @@ requirements:
   build:
     - patch  # [not win]
     - m2-patch  # [win]
-    - pyinstaller ==6.12.0
+    - pyinstaller
     - python ={{ python_version }}
     - conda ={{ conda_version }}
     - conda-package-handling >=2.3.0
