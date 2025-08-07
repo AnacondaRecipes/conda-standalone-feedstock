@@ -18,9 +18,9 @@ source:
     sha256: 916ef440fd4344214bea523480e9b20dfb41576d5d6cdbe6eb2282708e498e85
     folder: conda_src
     patches:
-      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
-      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
-      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
+      - patches/0001-Rename-and-replace-entrypoint-stub-exe.patch
+      - patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch
+      - patches/0003-Restrict-search-paths.patch
 
 build:
   number: 0
