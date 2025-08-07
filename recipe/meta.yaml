@@ -5,6 +5,7 @@
 {% set constructor_lower_bound = "3.12.1" %}
 {% set menuinst_lower_bound = "2.3.0" %}
 {% set python_version = "3.13.5" %}
+{% set pyver = "".join(python_version.split(".")[:2]) %}
 
 package:
   name: conda-standalone
@@ -13,24 +14,26 @@ package:
 source:
   - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
     sha256: e9db92a5a6e5533a1b59029f0f21d6dc3101f7fdd3efc66e39c6fe84a5a0ed0a
-  - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
+  - url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
     sha256: 916ef440fd4344214bea523480e9b20dfb41576d5d6cdbe6eb2282708e498e85
     folder: conda_src
     patches:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
-  - url: https://github.com/conda/constructor/archive/{{ constructor_lower_bound }}.tar.gz  # [win]
-    sha256: ff337c018b27fc8f0b78c8bba0171165c12422a9bbcf2d1895be82f4024842bd  # [win]
-    folder: constructor_src  # [win]
 
 build:
   number: 0
+  string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
+  string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
+  detect_binary_files_with_prefix: False  # [variant == 'onedir']
+  track_features:
+    - conda-standalone_onedir  # [variant == 'onedir']
   ignore_run_exports:
     - '*'
   script_env:
-    - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
+    - PYINSTALLER_BUILD_VARIANT={{ variant }}
 
 requirements:
   build:
@@ -55,9 +58,8 @@ test:
   source_files:
     - tests
   commands:
-    - pytest -vv # [not s390x]
-    - pytest -vv -k "not test_new_environment" # [s390x]
-    - test ! -f {{ PREFIX }}/bin/codesign  # [osx]
+    - pytest -vv
+    - test ! -e {{ PREFIX }}/bin/codesign  # [osx]
 
 about:
   home: https://github.com/conda/conda-standalone
