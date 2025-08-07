@@ -34,6 +34,7 @@ build:
   script_env:
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
     - PYINSTALLER_BUILD_VARIANT={{ variant }}
+    - GIT_FULL_HASH={{ GIT_FULL_HASH }}
 
 requirements:
   build:
