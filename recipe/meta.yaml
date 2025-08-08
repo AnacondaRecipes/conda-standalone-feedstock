@@ -33,7 +33,7 @@ build:
     - '*'
   missing_dso_whitelist:          # [osx and variant == 'onedir']
     - "$RPATH/libswift*.dylib"    # [osx and variant == 'onedir']
-  runpath_whitelist:              # [variant == 'onedir']
+  rpaths:                         # [variant == 'onedir']
     - standalone_conda/_internal  # [variant == 'onedir']
   script_env:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
