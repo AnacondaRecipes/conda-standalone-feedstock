@@ -1,5 +1,7 @@
 set -euxo pipefail
 
+cd $SRC_DIR
+
 # patched conda files
 # new files in patches need to be added here
 for fname in "core/path_actions.py" "utils.py" "deprecations.py" "base/constants.py"; do

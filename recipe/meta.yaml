@@ -34,8 +34,8 @@ build:
     - '*'
   missing_dso_whitelist:          # [osx and variant == 'onedir']
     - "$RPATH/libswift*.dylib"    # [osx and variant == 'onedir']
-  rpaths:                         # [variant == 'onedir']
-    - standalone_conda/_internal  # [variant == 'onedir']
+  rpaths:                         # [variant == 'onedir' and linux]
+    - standalone_conda/_internal  # [variant == 'onedir' and linux]
   script_env:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
