@@ -36,6 +36,7 @@ build:
     - "$RPATH/lib*.so*"           # [linux]
     - "$RPATH/lib*.dylib"         # [osx]
   script_env:
+    - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
     - PYINSTALLER_BUILD_VARIANT={{ variant }}
     - GIT_FULL_HASH={{ GIT_FULL_HASH }}
