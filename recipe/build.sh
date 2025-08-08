@@ -1,5 +1,7 @@
 set -euxo pipefail
 
+cd $SRC_DIR
+
 # patched conda files
 # new files in patches need to be added here
 for fname in "core/path_actions.py" "utils.py" "deprecations.py" "base/constants.py"; do
@@ -16,8 +18,13 @@ fi
 
 # -F is to create a single file
 # -s strips executables and libraries
+export variant="$variant"
 pyinstaller --clean --log-level=DEBUG src/conda.exe.spec
-mkdir -p "$PREFIX/standalone_conda"
+if [[ "$variant" == "onedir" ]]; then
+  mkdir -p "$PREFIX"
+else
+  mkdir -p "$PREFIX/standalone_conda"
+fi
 mv dist/conda.exe "$PREFIX/standalone_conda"
 
 # Collect licenses
