@@ -5,7 +5,6 @@
 {% set constructor_lower_bound = "3.12.1" %}
 {% set menuinst_lower_bound = "2.3.0" %}
 {% set python_version = "3.13.5" %}
-{% set pyver = "".join(python_version.split(".")[:2]) %}
 
 package:
   name: conda-standalone
@@ -24,8 +23,8 @@ source:
 
 build:
   number: 0
-  string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
-  string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
+  string: "h{{ PKG_HASH }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
+  string: "h{{ PKG_HASH }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
   detect_binary_files_with_prefix: False  # [variant == 'onedir']
   track_features:
     - conda-standalone_onedir  # [variant == 'onedir']
@@ -39,7 +38,6 @@ build:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
     - PYINSTALLER_BUILD_VARIANT={{ variant }}
-    - GIT_FULL_HASH={{ GIT_FULL_HASH }}
 
 requirements:
   build:
