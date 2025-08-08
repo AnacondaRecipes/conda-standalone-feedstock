@@ -27,14 +27,15 @@ build:
   string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
   string: "g{{ GIT_FULL_HASH[:7] }}_py{{ pyver }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
   detect_binary_files_with_prefix: False  # [variant == 'onedir']
+  binary_relocation: false
   track_features:
     - conda-standalone_onedir  # [variant == 'onedir']
   ignore_run_exports:
     - '*'
-  missing_dso_whitelist:
-    - "$RPATH/libswift*.dylib"    # [osx]
-    - "$RPATH/lib*.so*"           # [linux]
-    - "$RPATH/lib*.dylib"         # [osx]
+  missing_dso_whitelist:          # [osx and variant == 'onedir']
+    - "$RPATH/libswift*.dylib"    # [osx and variant == 'onedir']
+  # runpath_whitelist:              # [variant == 'onedir']
+  #   - standalone_conda/_internal  # [variant == 'onedir']
   script_env:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
@@ -43,6 +44,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - pyinstaller
     - python ={{ python_version }}
     - conda ={{ conda_version }}
