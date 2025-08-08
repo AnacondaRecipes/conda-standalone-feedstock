@@ -31,6 +31,10 @@ build:
     - conda-standalone_onedir  # [variant == 'onedir']
   ignore_run_exports:
     - '*'
+  missing_dso_whitelist:
+    - "$RPATH/libswift*.dylib"    # [osx]
+    - "$RPATH/lib*.so*"           # [linux]
+    - "$RPATH/lib*.dylib"         # [osx]
   script_env:
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
     - PYINSTALLER_BUILD_VARIANT={{ variant }}
