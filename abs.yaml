@@ -1,2 +1,2 @@
-skip_existing:
-  --error-overlinking
+build_parameters:
+  - "--error-overlinking"
