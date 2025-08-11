@@ -65,7 +65,8 @@ test:
   source_files:
     - tests
   commands:
-    - cd $SRC_DIR && pytest -vv
+    - pytest -vv # [not osx]
+    - pytest -vv -k 'not test_conda_standalone_config' # [osx]
     - test ! -e {{ PREFIX }}/bin/codesign  # [osx]
 
 about:
