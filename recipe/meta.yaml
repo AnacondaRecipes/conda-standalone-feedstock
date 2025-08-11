@@ -1,40 +1,51 @@
-{% set conda_version = "25.3.1" %}
-{% set conda_libmamba_solver_version = "25.3.0" %}
+{% set version = "25.5.1.post1" %}
+{% set conda_version = "25.5.1" %}
+{% set conda_libmamba_solver_version = "25.4.0" %}
 {% set libmambapy_version = "2.0.5" %}
-{% set constructor_version = "3.11.3" %}
+{% set constructor_lower_bound = "3.12.1" %}
 {% set menuinst_lower_bound = "2.3.0" %}
 {% set python_version = "3.13.5" %}
 
 package:
   name: conda-standalone
-  version: {{ conda_version }}
+  version: {{ version }}
 
 source:
-  - url: https://github.com/conda/conda-standalone/archive/{{ conda_version }}.tar.gz
-    sha256: 783fabe62e5a1afe15fc5fd2d3be9dca44cd3bf8dcfb01eaf72277a0b3208807
+  - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
+    sha256: e9db92a5a6e5533a1b59029f0f21d6dc3101f7fdd3efc66e39c6fe84a5a0ed0a
+    patches:
+      - patches/0001-Unset-CONDARC-to-detect-.condarc-file-of-conda-stand.patch
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
-    sha256: bc1be5746ec00998f063917da09302ab2d7ef4ae69be8fa5189049473635e169
+    sha256: 916ef440fd4344214bea523480e9b20dfb41576d5d6cdbe6eb2282708e498e85
     folder: conda_src
     patches:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
-  - url: https://github.com/conda/constructor/archive/{{ constructor_version }}.tar.gz  # [win]
-    sha256: b1b0bb88a8934508f837c892b4f9c3f08b34bf044b704b1fde44b148c236efbe  # [win]
-    folder: constructor_src  # [win]
 
 build:
   number: 0
+  string: "h{{ PKG_HASH }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
+  string: "h{{ PKG_HASH }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
+  detect_binary_files_with_prefix: False  # [variant == 'onedir']
+  track_features:
+    - conda-standalone_onedir  # [variant == 'onedir']
   ignore_run_exports:
     - '*'
+  missing_dso_whitelist:          # [osx and variant == 'onedir']
+    - "$RPATH/libswift*.dylib"    # [osx and variant == 'onedir']
+  rpaths:                         # [variant == 'onedir' and linux]
+    - standalone_conda/_internal  # [variant == 'onedir' and linux]
+  overlinking_ignore_patterns:   # [win]
+    - '*'                        # [win]
   script_env:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
+    - PYINSTALLER_BUILD_VARIANT={{ variant }}
 
 requirements:
   build:
-    - patch  # [not win]
-    - m2-patch  # [win]
+    - {{ stdlib('c') }}
     - pyinstaller
     - python ={{ python_version }}
     - conda ={{ conda_version }}
@@ -45,7 +56,7 @@ requirements:
     - libmambapy ={{ libmambapy_version }}
     - archspec >=0.2.3
   run_constrained:
-    - constructor >={{ constructor_version }}
+    - constructor >={{ constructor_lower_bound }}
 
 test:
   requires:
@@ -56,9 +67,9 @@ test:
   source_files:
     - tests
   commands:
-    - pytest -vv # [not s390x]
-    - pytest -vv -k "not test_new_environment" # [s390x]
-    - test ! -f {{ PREFIX }}/bin/codesign  # [osx]
+    - pytest -vv # [not osx]
+    - pytest -vv -k 'not test_conda_standalone_config' # [osx]
+    - test ! -e {{ PREFIX }}/bin/codesign  # [osx]
 
 about:
   home: https://github.com/conda/conda-standalone
@@ -75,7 +86,6 @@ about:
 extra:
   recipe-maintainers:
     - jaimergp
-    - jakirkham
+    - marcoesters
     - msarahan
-    - forrestwaters
     - nehaljwani
