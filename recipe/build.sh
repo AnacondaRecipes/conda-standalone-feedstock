@@ -1,6 +1,8 @@
 set -euxo pipefail
 
-cd $SRC_DIR
+pwd
+echo "${SRC_DIR}"
+cd ${SRC_DIR}
 
 # patched conda files
 # new files in patches need to be added here
