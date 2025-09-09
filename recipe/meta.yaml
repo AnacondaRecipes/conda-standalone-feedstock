@@ -65,10 +65,11 @@ test:
     - pytest
     - ruamel.yaml
   source_files:
+    - {{ RECIPE_DIR }}/.condarc
     - tests
   commands:
-    - export PYINSTALLER_CONDARC_DIR=$SRC_DIR/recipe  # [not win]
-    - set PYINSTALLER_CONDARC_DIR=%SRC_DIR%\recipe    # [win]
+    - export PYINSTALLER_CONDARC_DIR=. # [not win]
+    - set PYINSTALLER_CONDARC_DIR=.    # [win]
     - pytest -vv
     - test ! -e {{ PREFIX }}/bin/codesign  # [osx]
 
