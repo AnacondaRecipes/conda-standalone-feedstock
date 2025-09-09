@@ -36,8 +36,8 @@ build:
     - "$RPATH/libswift*.dylib"    # [osx and variant == 'onedir']
   rpaths:                         # [linux and variant == 'onedir']
     - standalone_conda/_internal  # [linux and variant == 'onedir']
-  overlinking_ignore_patterns:   # [win and variant == 'onedir']
-    - '*'                        # [win and variant == 'onedir']
+  overlinking_ignore_patterns:    # [win and variant == 'onedir']
+    - '*'                         # [win and variant == 'onedir']
   script_env:
     - CONDA_STANDALONE_TEST_CHANNEL=defaults
     - PYINSTALLER_CONDARC_DIR={{ RECIPE_DIR }}
@@ -65,7 +65,7 @@ test:
     - pytest
     - ruamel.yaml
   source_files:
-    - {{ RECIPE_DIR }}/.condarc
+    - {{ RECIPE_DIR | replace('\\', '/') }}/.condarc
     - tests
   commands:
     - export PYINSTALLER_CONDARC_DIR=. # [not win]
