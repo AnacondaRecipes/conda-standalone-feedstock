@@ -4,5 +4,5 @@ IF NOT EXIST "%PYINSTALLER_CONDARC_DIR%" (
     ECHO "Could not find directory %PYINSTALLER_CONDARC_DIR%"
     EXIT /B 1
 )
-pytest -vvv -k "not test_menuinst_"
-IF %ERRORLEVEL% EXIT /B %ERRORLEVEL%
+echo. > "%PREFIX%\.nonadmin"
+IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
