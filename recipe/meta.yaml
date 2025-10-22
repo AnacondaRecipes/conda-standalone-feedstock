@@ -1,7 +1,7 @@
 {% set version = "25.9.1" %}
 {% set conda_version = version %}
 {% set conda_libmamba_solver_version = "25.4.0" %}
-{% set libmambapy_version = "2.0.5" %}
+{% set libmambapy_version = "2.3.2" %}
 {% set constructor_lower_bound = "3.12.1" %}
 {% set menuinst_lower_bound = "2.3.0" %}
 {% set python_version = "3.13.7" %}
@@ -23,7 +23,7 @@ source:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0004-Fix-conda-run.patch"
 
 build:
-  number: 0
+  number: 1
   string: "h{{ PKG_HASH }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
   string: "h{{ PKG_HASH }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
   detect_binary_files_with_prefix: False  # [variant == 'onedir']
@@ -45,6 +45,7 @@ build:
 requirements:
   build:
     - {{ stdlib('c') }}
+    - libarchive >=3.8.2
     - pyinstaller
     - python ={{ python_version }}
     - conda ={{ conda_version }}
