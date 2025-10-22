@@ -7,5 +7,5 @@ IF NOT EXIST "%PYINSTALLER_CONDARC_DIR%" (
 :: Create a .nonadmin file so that the menuinst tests
 :: do not try to run with admin privileges
 echo. > "%PREFIX%\.nonadmin"
-pytest -vvv -k "not test_conda_run"
+pytest -vvv
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
