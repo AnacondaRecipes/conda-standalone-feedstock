@@ -1,0 +1,13 @@
+diff --git a/src/conda.exe.spec b/src/conda.exe.spec
+index a4947c6..391e82f 100644
+--- a/src/conda.exe.spec
++++ b/src/conda.exe.spec
+@@ -132,7 +132,7 @@ a = Analysis(['entry_point.py'],
+              hiddenimports=hiddenimports,
+              hookspath=[],
+              runtime_hooks=[],
+-             excludes=['test'],
++             excludes=['test', 'pkg_resources'],
+              win_no_prefer_redirects=False,
+              win_private_assemblies=False,
+              cipher=block_cipher,
