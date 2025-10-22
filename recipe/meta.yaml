@@ -13,6 +13,8 @@ package:
 source:
   - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
     sha256: dd0b7758ae67e36975dafce2964b7f2cf934d14dffb94e53ed104ffe83e00a90
+    patches:
+      - 0001-exclude-pkg-resources.patch
   - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
     sha256: a8fd4efd493203fc8017f9d80d2d69fbc97a6f583f3da956097eaaf160e84f99
     folder: conda_src
