@@ -11,9 +11,9 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/conda/conda-standalone/archive/{{ version }}.tar.gz
+  - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.tar.gz
     sha256: ef0453524062e76eaa30b41fb249a54c627761138ca738c0343a8cafd78d975b
-  - url: https://github.com/conda/conda/archive/{{ conda_version }}.tar.gz
+  - url: https://github.com/conda/conda/releases/download/{{ conda_version }}/conda-{{ conda_version }}.tar.gz
     sha256: 62aad5c046936b07e3ea44d6d908f2d94b427049420332def421e9c72ff3961e
     folder: conda_src
     patches:
