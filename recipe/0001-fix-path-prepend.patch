@@ -1,0 +1,14 @@
+diff --git a/src/conda_constructor/windows/path.py b/src/conda_constructor/windows/path.py
+index bb48d26..0ee95a8 100644
+--- a/src/conda_constructor/windows/path.py
++++ b/src/conda_constructor/windows/path.py
+@@ -133,6 +133,9 @@ def add_remove_path(
+             prefix / "Library" / "bin",
+             prefix / "Scripts",
+         ]
++        # Reverse the prefixes when prepending or they will be added in reverse order
++        if not append:
++            prefixes.reverse()
+     else:
+         prefixes = [prefix]
+     if add is not None:

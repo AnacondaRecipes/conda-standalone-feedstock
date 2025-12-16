@@ -13,6 +13,8 @@ package:
 source:
   - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.tar.gz
     sha256: ef0453524062e76eaa30b41fb249a54c627761138ca738c0343a8cafd78d975b
+    patches:
+      - 0001-fix-path-prepend.patch
   - url: https://github.com/conda/conda/releases/download/{{ conda_version }}/conda-{{ conda_version }}.tar.gz
     sha256: 62aad5c046936b07e3ea44d6d908f2d94b427049420332def421e9c72ff3961e
     folder: conda_src
@@ -23,7 +25,7 @@ source:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0004-Fix-conda-run.patch"
 
 build:
-  number: 0
+  number: 1
   string: "h{{ PKG_HASH }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
   string: "h{{ PKG_HASH }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
   detect_binary_files_with_prefix: False  # [variant == 'onedir']
