@@ -6,7 +6,25 @@
   --conda-source conda_src || goto :error
 
 :: we need these for noarch packages with entry points to work on windows
-COPY "conda_src\conda\shell\cli-%ARCH%.exe" entry_point_base.exe || goto :error
+echo PREFIX=%PREFIX% BUILD_PREFIX=%BUILD_PREFIX% ARCH=%ARCH%
+set "found="
+for %%P in ("%PREFIX%" "%BUILD_PREFIX%") do (
+  for %%M in (conda_build conda-build) do (
+    if exist "%%~P\Lib\site-packages\%%M\cli-%ARCH%.exe" (
+      COPY "%%~P\Lib\site-packages\%%M\cli-%ARCH%.exe" entry_point_base.exe || goto :error
+      set "found=1"
+      goto :copied
+    )
+  )
+)
+:copied
+if defined found (
+  echo copied entry_point_base.exe
+) else (
+  echo Could not find cli-%ARCH%.exe in PREFIX or BUILD_PREFIX
+  dir "%PREFIX%\Lib\site-packages\conda*" || dir "%BUILD_PREFIX%\Lib\site-packages\conda*"
+  goto :error
+)
 
 pyinstaller --clean --log-level=DEBUG src\conda.exe.spec || goto :error
 set "variant=%variant%"
