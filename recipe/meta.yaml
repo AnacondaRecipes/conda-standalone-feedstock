@@ -8,7 +8,7 @@
 
 package:
   name: conda-standalone
-  version: {{ version }}
+  version: {{ version }}.post1
 
 source:
   - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.post1.tar.gz
