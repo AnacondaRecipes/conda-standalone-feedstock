@@ -1,5 +1,5 @@
-{% set version = "26.3.2" %}
-{% set conda_version = version %}
+{% set version = "26.3.2.post1" %}
+{% set conda_version = "26.3.2" %}
 {% set conda_libmamba_solver_version = "26.4.0" %}
 {% set libmambapy_version = "2.3.2" %}
 {% set constructor_lower_bound = "3.15.2" %}
@@ -11,13 +11,14 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.post1.tar.gz
+  - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.tar.gz
     sha256: 158c1ee18974b9907ebf3c0c1e4ddcdf1b7b003fa0dbc7896d9df7618286270e
   - url: https://github.com/conda/conda/releases/download/{{ conda_version }}/conda-{{ conda_version }}.tar.gz
     sha256: b5f5c1d4068a6582816d223733993eff354d55ec762ac555b49fdb8de07050c6
     folder: conda_src
     patches:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0001-Rename-and-replace-entrypoint-stub-exe.patch"
+      - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0002-Manipulate-PATH-directly-instead-of-_call_ing-conda.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0003-Restrict-search-paths.patch"
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0004-Fix-conda-run.patch"
 
@@ -60,6 +61,7 @@ requirements:
 test:
   requires:
     - conda
+    - conda-build
     - menuinst >={{ menuinst_lower_bound }}
     - pytest
     - ruamel.yaml
