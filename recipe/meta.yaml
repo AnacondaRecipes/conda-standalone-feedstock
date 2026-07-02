@@ -23,7 +23,7 @@ source:
       - "{{ SRC_DIR | replace('\\', '/') }}/src/conda_patches/0004-Fix-conda-run.patch"
 
 build:
-  number: 0
+  number: 1
   string: "h{{ PKG_HASH }}_single_{{ PKG_BUILDNUM }}"  # [variant != 'onedir']
   string: "h{{ PKG_HASH }}_onedir_{{ PKG_BUILDNUM }}"  # [variant == 'onedir']
   detect_binary_files_with_prefix: False  # [variant == 'onedir']
