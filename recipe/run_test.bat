@@ -9,5 +9,5 @@ REM do not try to run with admin privileges
 echo. > "%PREFIX%\.nonadmin"
 REM conda does not show plug-in settings with `conda config --shows-sources`
 REM This will be fixed with https://github.com/conda/conda/pull/16246
-pytest -vvv -k 'not test_conda_standalone_config'
+pytest -vvv -k "not test_conda_standalone_config"
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
