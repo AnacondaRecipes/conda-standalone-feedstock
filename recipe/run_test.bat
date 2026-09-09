@@ -9,8 +9,8 @@ REM do not try to run with admin privileges
 echo. > "%PREFIX%\.nonadmin"
 :: miniforge_console_shortcut (conda-forge) is win-64 only
 if "%ARCH%"=="arm64" (
-    pytest -vvv -k "not test_menuinst and not test_uninstallation_menuinst and not test_conda_standalone_config"
+    pytest -vvv -k "not test_menuinst and not test_uninstallation_menuinst"
 ) else (
-    pytest -vvv -k "not test_conda_standalone_config"
+    pytest -vvv
 )
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
