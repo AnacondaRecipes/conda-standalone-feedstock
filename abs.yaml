@@ -1,0 +1,7 @@
+channels:
+    # win-arm64 conda
+  - https://staging.continuum.io/pbp/fs/conda-feedstock/pr0/c0d1161
+    # win-arm64 py-rattler-build
+  - https://staging.continuum.io/pbp/fs/py-rattler-build-feedstock/pr0/f9c55e8
+    # wibn-arm64 conda-build
+  - https://staging.continuum.io/pbp/fs/conda-build-feedstock/pr0/5a9cc0b
