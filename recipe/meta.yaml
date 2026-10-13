@@ -1,4 +1,4 @@
-{% set version = "26.9.2" %}
+{% set version = "26.9.2.post1" %}
 {% set conda_version = "26.9.2" %}
 {% set conda_libmamba_solver_version = "26.7.0" %}
 {% set libmambapy_version = "2.3.2" %}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://github.com/conda/conda-standalone/archive/refs/tags/{{ version }}.tar.gz
-    sha256: ab362c7a6cd39f21c847ad417d7a139aff58ac37a12be4f934ccdf73f4bade34
+    sha256: 55e93b728f79a53e525bf252e3e18a273cd6dbfc2f3f5b139618b8722ddf69ee
   - url: https://github.com/conda/conda/releases/download/{{ conda_version }}/conda-{{ conda_version }}.tar.gz
     sha256: 51656666e11d98fc1e52d8378564909cc4201828760ae6cea6373e7186361c1b
     folder: conda_src
